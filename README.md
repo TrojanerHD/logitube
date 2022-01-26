@@ -14,6 +14,7 @@ Displays the progress of the currently watched video onto your Logitech LightSyn
 
 ### Pre-requisites
 + [g810-led](https://github.com/MatMoul/g810-led) in PATH
++ A [compatible keyboard](https://github.com/MatMoul/g810-led#compatible-keyboards-)
 
 ### Installing extension and download binary file
 + Head over to [releases](https://github.com/TrojanerHD/logitube/releases)
