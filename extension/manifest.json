@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "logitube",
+  "version": "1.5.0",
+  "description": "Retrieves the YouTube progress bar and projects it to a Logitech LightSync keyboard",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "applications": {
+    "gecko": {
+      "id": "logitube@trojaner.com",
+      "strict_min_version": "50.0"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*", "*://www.disneyplus.com/*"],
+      "js": ["index.js"]
+    }
+  ],
+  "permissions": ["nativeMessaging", "tabs"]
+}

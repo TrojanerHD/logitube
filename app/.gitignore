@@ -1,0 +1,4 @@
+logitube
+
+lib/*
+!lib/firefoxNativeRead.hpp
