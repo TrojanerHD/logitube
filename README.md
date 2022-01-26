@@ -1,5 +1,5 @@
 # logitube
-Displays the progress of the currently watched video onto your Logitech lightsync compatible keyboard's F-keys
+Displays the progress of the currently watched video onto your Logitech LightSync compatible keyboard's F-keys
 
 ## Currently supported
 + OS
