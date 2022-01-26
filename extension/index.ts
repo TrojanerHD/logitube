@@ -46,7 +46,7 @@ function update(): void {
       if (disneyDurationDiv) {
         const rawText: string[] = disneyDurationDiv.innerText.split(' / ');
         disney.currentTime = timeToSeconds(rawText[0]);
-        disney.duration = timeToSeconds(rawText[1]);
+        disney.duration = disney.currentTime + timeToSeconds(rawText[1]);
         disney.playing = true;
       } else if (disney.playing) disney.duration++;
 
