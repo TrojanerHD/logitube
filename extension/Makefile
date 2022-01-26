@@ -1,4 +1,4 @@
-addon:
+all:
 	echo "Don't forget to increase version"
 	tsc
 	rm logitube.zip
