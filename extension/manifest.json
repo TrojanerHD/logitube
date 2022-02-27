@@ -15,7 +15,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*", "*://www.disneyplus.com/*"],
-      "js": ["index.js"]
+      "js": ["build/index.js"]
     }
   ],
   "permissions": ["nativeMessaging", "tabs"]

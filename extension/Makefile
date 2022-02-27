@@ -4,8 +4,7 @@ all:
 ifneq ("$(wildcard ./logitube.zip)", "")
 	rm logitube.zip
 endif
-	cp manifest.json build/
-	cd build && zip ../logitube.zip *.js manifest.json
+	zip logitube.zip build/*.js manifest.json
 
 clean:
 	rm -r build
