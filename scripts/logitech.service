@@ -1,0 +1,9 @@
+[Unit]
+Description=Logitech Lighting
+
+[Install]
+WantedBy=graphical.target
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/bin/bash -c '${HOME}/Documents/Random/Logitech/Lighting.sh'

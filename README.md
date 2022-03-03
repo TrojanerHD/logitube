@@ -44,10 +44,11 @@ Here is an example of creating a native manifest in Linux. For more information,
 And that's it, the extension should work for you
 
 ## Project structure
-This project consists of two parts:
+This project consists of three parts:
 
 + The firefox extension located in [extension](https://github.com/TrojanerHD/logitube/blob/main/extension), written in TypeScript
 + The client side app located in [app](https://github.com/TrojanerHD/logitube/blob/main/app), written in C++
++ The systemd-service and script located in [scripts](https://github.com/TrojanerHD/logitube/blob/main/scripts), written in bash and systemd syntax
 
 Each of these parts have their own README.md that describe what they are doing and how to contribute
 
