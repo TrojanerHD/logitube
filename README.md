@@ -21,6 +21,10 @@ Displays the progress of the currently watched video onto your Logitech LightSyn
   + Click on the .xpi file and allow Firefox to install the extension
   + Download the logitube file and place it into a folder of your choice
  
+### App installation
++ Download the logitube binary in the [releases](https://github.com/TrojanerHD/logitube/releases) and place it in a folder you like (For example `$HOME/Documents/Code/Projects/logitube/`).
++ Change the binary's permission to allow executing (`chmod u+x logitube`)
+
 ### Creating a native manifest
 The native manifest allows the extension to send data to the client app (See [Project structure](#project-structure) for more information)
 
