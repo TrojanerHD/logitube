@@ -42,6 +42,8 @@ void set_key(int key, double strength, std::string service) {
     oss << colorCode << decimal_to_hexadecimal(strength / 255 * 171) << "00";
   else if (service == "disney")
     oss << colorCode << colorCode << colorCode;
+  else if (service == "w2g")
+    oss << "00" << decimal_to_hexadecimal(strength / 255 * 96) << decimal_to_hexadecimal(strength / 255 * 223);
 
   std::string command = oss.str();
   system(command.c_str());

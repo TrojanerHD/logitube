@@ -51,6 +51,24 @@ function update(): void {
       } else if (disney.playing) disney.duration++;
 
       sendToBackground(disney.currentTime, disney.duration, 'disney');
+      break;
+    case 'w2g.tv':
+      const iframe: HTMLIFrameElement =
+        document.querySelector('#w2g-npa-frame');
+      const w2gCurrentTimeDiv: HTMLDivElement =
+        iframe.contentWindow.document.querySelector<HTMLDivElement>(
+          '#time_display > span:nth-child(1)'
+        );
+      const w2gDurationDiv: HTMLDivElement =
+        iframe.contentWindow.document.querySelector<HTMLDivElement>(
+          '#time_display > span:nth-child(3)'
+        );
+      sendToBackground(
+        timeToSeconds(w2gCurrentTimeDiv.innerText),
+        timeToSeconds(w2gDurationDiv.innerText),
+        'w2g'
+      );
+      break;
   }
   updateFunction();
 }

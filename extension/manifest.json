@@ -14,7 +14,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/*", "*://www.disneyplus.com/*"],
+      "matches": ["*://www.youtube.com/*", "*://www.disneyplus.com/*", "*://w2g.tv/*"],
       "js": ["build/index.js"]
     }
   ],
