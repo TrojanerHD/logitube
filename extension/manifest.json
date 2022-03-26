@@ -4,7 +4,7 @@
   "version": "1.5.2",
   "description": "Retrieves the video progress bar and projects it to the F-keys of a Logitech LightSync keyboard",
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["build/background.js"]
   },
   "applications": {
     "gecko": {
