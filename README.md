@@ -10,6 +10,7 @@ Displays the progress of the currently watched video onto your Logitech LightSyn
   + YouTube
   + Disney+
   + Watch2Gether
+  + Netflix
 
 ## Installation
 
