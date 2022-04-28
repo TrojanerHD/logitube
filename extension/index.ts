@@ -63,7 +63,7 @@ function update(): void {
   }
   videoExists = true;
   sendToBackground();
-  video.ontimeupdate = (): void => sendToBackground();
+  video.addEventListener('timeupdate', sendToBackground);
   updateFunction();
 }
 
