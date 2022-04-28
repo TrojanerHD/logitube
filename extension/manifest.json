@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "logitube",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "Retrieves the video progress bar and projects it to the F-keys of a Logitech LightSync keyboard",
   "background": {
     "scripts": ["build/background.js"]

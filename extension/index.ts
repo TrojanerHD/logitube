@@ -20,7 +20,7 @@ function update(): void {
       .contentWindow.document.querySelector<HTMLIFrameElement>('iframe')
       .contentWindow.document.querySelector<HTMLVideoElement>('video');
   }
-  if (!video || isNaN(video.duration)) {
+  if (video === undefined || isNaN(video.duration)) {
     videoExists = false;
     sendToBackground();
     updateFunction();
@@ -61,9 +61,9 @@ function update(): void {
       service = 'youtube'; // Netflix and YouTube use the same color for their progress bars
       break;
   }
+  videoExists = true;
   sendToBackground();
   video.ontimeupdate = (): void => sendToBackground();
-  videoExists = true;
   updateFunction();
 }
 
