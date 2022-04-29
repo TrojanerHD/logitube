@@ -60,16 +60,15 @@ while :
 do
   sleep 5
   if [ "$EUID" -eq 0 ]; then
-    runuser -l trojaner -c 'env DISPLAY=:0 xhost +local:'>/dev/null
+    runuser -l trojaner -c 'DISPLAY=:0 xhost +local:'>/dev/null
   else
-    env DISPLAY=:0 xhost +local:
+    DISPLAY=:0 xhost +local:
   fi
-  name=$(eval "env DISPLAY=:0 xdotool getactivewindow getwindowname")
+  name=$(DISPLAY=:0 xdotool getactivewindow getwindowname)
   if [ "$oldGame" == "$name" ]; then
     continue
   fi
   oldGame=$name
-  name=$(echo $name | xargs)
   case $name in
     "Overwatch")
       overwatch
