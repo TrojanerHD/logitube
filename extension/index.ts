@@ -15,12 +15,12 @@ update();
 
 function update(): void {
   video = document.querySelector<HTMLVideoElement>('video');
-  if (document.location.hostname === 'w2g.tv') {
+  if (document.location.hostname === 'w2g.tv')
     video = document
       .querySelector<HTMLIFrameElement>('iframe#w2g-npa-frame')
-      .contentWindow.document.querySelector<HTMLIFrameElement>('iframe')
-      .contentWindow.document.querySelector<HTMLVideoElement>('video');
-  }
+      ?.contentWindow.document.querySelector<HTMLIFrameElement>('iframe')
+      ?.contentWindow.document.querySelector<HTMLVideoElement>('video');
+
   if (video === undefined || isNaN(video.duration)) {
     videoExists = false;
     sendToBackground();
@@ -74,8 +74,8 @@ function updateFunction(): void {
 
 function sendToBackground(overrideMessage?: TransferData): void {
   let message: TransferData = {
-    currentTime: video.currentTime,
-    duration: video.duration,
+    currentTime: video?.currentTime ?? 0,
+    duration: video?.duration ?? 0,
     service: service,
   };
   if (!videoExists) {
