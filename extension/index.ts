@@ -9,6 +9,7 @@ let video: HTMLVideoElement;
 let service: string = 'none';
 addEventListener('visibilitychange', (): void => {
   if (document.visibilityState === 'visible') sendToBackground();
+  else sendToBackground({ currentTime: 0, duration: 0, service: 'none' });
 });
 update();
 
@@ -63,7 +64,7 @@ function update(): void {
   }
   videoExists = true;
   sendToBackground();
-  video.addEventListener('timeupdate', sendToBackground);
+  video.addEventListener('timeupdate', (): void => sendToBackground());
   updateFunction();
 }
 
@@ -71,7 +72,7 @@ function updateFunction(): void {
   setTimeout(update, 1000);
 }
 
-function sendToBackground(): void {
+function sendToBackground(overrideMessage?: TransferData): void {
   let message: TransferData = {
     currentTime: video.currentTime,
     duration: video.duration,
@@ -81,6 +82,7 @@ function sendToBackground(): void {
     message.currentTime = 0;
     message.duration = 0;
   }
+  if (overrideMessage !== undefined) message = overrideMessage;
   browser.runtime.sendMessage(
     `{"properties": ${JSON.stringify(message)}, "url": "${document.location}"}`
   );
