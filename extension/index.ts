@@ -21,7 +21,7 @@ function update(): void {
       ?.contentWindow.document.querySelector<HTMLIFrameElement>('iframe')
       ?.contentWindow.document.querySelector<HTMLVideoElement>('video');
 
-  if (video === undefined || isNaN(video.duration)) {
+  if (video === undefined || video === null || isNaN(video.duration)) {
     videoExists = false;
     sendToBackground();
     updateFunction();
