@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "logitube",
-  "version": "1.6.2",
+  "version": "1.7.10",
   "description": "Retrieves the video progress bar and projects it to the F-keys of a Logitech LightSync keyboard",
   "background": {
     "scripts": ["build/background.js"]
@@ -14,7 +14,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/*", "*://www.disneyplus.com/*", "*://w2g.tv/*"],
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://www.disneyplus.com/*",
+        "*://w2g.tv/*",
+        "*://www.netflix.com/*"
+      ],
       "js": ["build/index.js"]
     }
   ],

@@ -1,75 +1,70 @@
 interface TransferData {
   currentTime: number;
-  playing: boolean;
   duration: number;
+  service: string;
 }
 
-const disney: TransferData = { currentTime: 0, playing: false, duration: 0 };
+let videoExists: boolean = false;
+let video: HTMLVideoElement;
+let service: string = 'none';
+addEventListener('visibilitychange', (): void => {
+  if (document.visibilityState === 'visible') sendToBackground();
+  else sendToBackground({ currentTime: 0, duration: 0, service: 'none' });
+});
 update();
 
 function update(): void {
+  video = document.querySelector<HTMLVideoElement>('video');
+  if (document.location.hostname === 'w2g.tv')
+    video = document
+      .querySelector<HTMLIFrameElement>('iframe#w2g-npa-frame')
+      ?.contentWindow.document.querySelector<HTMLIFrameElement>('iframe')
+      ?.contentWindow.document.querySelector<HTMLVideoElement>('video');
+
+  if (video === undefined || video === null || isNaN(video.duration)) {
+    videoExists = false;
+    sendToBackground();
+    updateFunction();
+    return;
+  }
+  if (videoExists) {
+    updateFunction();
+    return;
+  }
   switch (document.location.hostname) {
     case 'www.youtube.com':
-      const videoStream: HTMLVideoElement =
-        document.querySelector<HTMLVideoElement>('.video-stream');
       const playback: boolean =
         document.location.pathname.includes('/watch') &&
         document.querySelector('.ytd-video-primary-info-renderer.title')
-          .textContent !== '' &&
-        videoStream !== undefined &&
-        !isNaN(videoStream.duration);
+          .textContent !== '';
       if (!playback) {
-        sendToBackground(0, 0, 'none');
+        sendToBackground();
         updateFunction();
         return;
       }
-
-      let service: string = 'youtube';
+      service = 'youtube';
       let adText: NodeListOf<HTMLDivElement> =
         document.querySelectorAll<HTMLDivElement>('div.ytp-ad-text');
       if (
-        !!Array.from(adText).find((adTextElement: HTMLDivElement): boolean =>
+        Array.from(adText).some((adTextElement: HTMLDivElement): boolean =>
           adTextElement.id.startsWith('simple-ad-badge')
         )
       )
         service += '-ad';
-
-      sendToBackground(videoStream.currentTime, videoStream.duration, service);
       break;
     case 'www.disneyplus.com':
-      if (!document.querySelector('video.btm-media-client-element')) {
-        disney.playing = false;
-        break;
-      }
-      const disneyDurationDiv: HTMLDivElement =
-        document.querySelector<HTMLDivElement>('div.time-display-label');
-      if (disneyDurationDiv) {
-        const rawText: string[] = disneyDurationDiv.innerText.split(' / ');
-        disney.currentTime = timeToSeconds(rawText[0]);
-        disney.duration = disney.currentTime + timeToSeconds(rawText[1]);
-        disney.playing = true;
-      } else if (disney.playing) disney.duration++;
-
-      sendToBackground(disney.currentTime, disney.duration, 'disney');
+      service = 'disney';
       break;
     case 'w2g.tv':
-      const iframe: HTMLIFrameElement =
-        document.querySelector('#w2g-npa-frame');
-      const w2gCurrentTimeDiv: HTMLDivElement =
-        iframe.contentWindow.document.querySelector<HTMLDivElement>(
-          '#time_display > span:nth-child(1)'
-        );
-      const w2gDurationDiv: HTMLDivElement =
-        iframe.contentWindow.document.querySelector<HTMLDivElement>(
-          '#time_display > span:nth-child(3)'
-        );
-      sendToBackground(
-        timeToSeconds(w2gCurrentTimeDiv.innerText),
-        timeToSeconds(w2gDurationDiv.innerText),
-        'w2g'
-      );
+      service = 'w2g';
+      break;
+    case 'www.netflix.com':
+      service = 'youtube'; // Netflix and YouTube use the same color for their progress bars
       break;
   }
+  videoExists = true;
+  sendToBackground();
+  video.addEventListener('timeupdate', (): void => sendToBackground());
   updateFunction();
 }
 
@@ -77,22 +72,18 @@ function updateFunction(): void {
   setTimeout(update, 1000);
 }
 
-function timeToSeconds(time: string): number {
-  const timeSplit: string[] = time.split(':');
-  let total: number = 0;
-
-  for (const [index, elem] of timeSplit.entries())
-    total += Number(elem) * 60 ** (timeSplit.length - index);
-
-  return total;
-}
-
-function sendToBackground(
-  currentTime: number,
-  duration: number,
-  service: string
-): void {
+function sendToBackground(overrideMessage?: TransferData): void {
+  let message: TransferData = {
+    currentTime: video?.currentTime ?? 0,
+    duration: video?.duration ?? 0,
+    service: video !== undefined && video !== null ? service : 'none',
+  };
+  if (!videoExists) {
+    message.currentTime = 0;
+    message.duration = 0;
+  }
+  if (overrideMessage !== undefined) message = overrideMessage;
   browser.runtime.sendMessage(
-    `{"properties": {"currentTime": ${currentTime}, "duration": ${duration}, "service": "${service}"}, "url": "${document.location}"}`
+    `{"properties": ${JSON.stringify(message)}, "url": "${document.location}"}`
   );
 }
