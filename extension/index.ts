@@ -76,7 +76,7 @@ function sendToBackground(overrideMessage?: TransferData): void {
   let message: TransferData = {
     currentTime: video?.currentTime ?? 0,
     duration: video?.duration ?? 0,
-    service: service,
+    service: video !== undefined && video !== null ? service : 'none',
   };
   if (!videoExists) {
     message.currentTime = 0;
