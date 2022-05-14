@@ -49,6 +49,25 @@ splitgate () {
   g910-led -c
 }
 
+we_were_here () {
+  case $1 in
+    "together")
+      g910-led -an b9a732
+      g910-led -kn w 8000ff
+      g910-led -kn a 8000ff
+      g910-led -kn s 8000ff
+      g910-led -kn d 8000ff
+      g910-led -kn shift_left aa00000
+      g910-led -kn space 8000ff
+      g910-led -kn v FF6A00
+      g910-led -kn e 1dc100
+      g910-led -kn ctrl_left aa00000
+      g910-led -kn z 00ADEF
+      g910-led -kn x 00ADEF
+      g910-led -kn l 00ADEF;;
+  esac
+  g910-led -c
+}
 
 default () {
   g910-led -fx hwave keys 5s
@@ -78,6 +97,9 @@ do
       default=false;;
     "PortalWars")
       splitgate
+      default=false;;
+    "We Were Here Together")
+      we_were_here "together"
       default=false;;
     *)
       if [ $default == true ]; then
