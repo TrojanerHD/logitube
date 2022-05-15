@@ -11,24 +11,13 @@ namespace fnr {
 }
 
 std::string decimal_to_hexadecimal(int num) {
-  if (num == 0) return "00";
-  char arr[2];
-  int i = 0;
-  while (num != 0) {
-    int temp = 0;
-    temp = num % 16;
-    if (temp < 10) {
-      arr[i] = temp + 48;
-      i++;
-    } else {
-      arr[i] = temp + 55;
-      i++;
-    }
-    num = num / 16;
-  }
   std::ostringstream oss;
-  for (int j = i - 1; j >= 0; j--) oss << arr[j];
-  return oss.str();
+  oss << std::hex << num;
+  std::string str = oss.str();
+  if (str.size() == 1) str = "0" + str;
+  return str; 
+}
+
 }
 
 void set_key(int key, double strength, std::string service) {
