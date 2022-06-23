@@ -11,6 +11,7 @@ addEventListener('visibilitychange', (): void => {
   if (document.visibilityState === 'visible') sendToBackground();
   else sendToBackground({ currentTime: 0, duration: 0, service: 'none' });
 });
+let timeout: number = Date.now();
 update();
 
 function update(): void {
@@ -73,6 +74,8 @@ function updateFunction(): void {
 }
 
 function sendToBackground(overrideMessage?: TransferData): void {
+  if (timeout > Date.now()) return;
+  timeout = Date.now() + 500;
   let message: TransferData = {
     currentTime: video?.currentTime ?? 0,
     duration: video?.duration ?? 0,
