@@ -54,13 +54,13 @@ void set_key(int key, double strength, std::string service) {
 void set_keys(double percent, std::string service) {
   system("g910-led -an 000000");
   for (unsigned int i = 1; i <= 12; i++) {
-    if (percent < 8 + 1 / 3) {
-      percent = percent / (8 + 1 / 3) * 100;
+    if (percent < 8 + 1. / 3) {
+      percent = percent / (8 + 1. / 3) * 100;
       set_key(i, percent * 2.55, service);
       break;
     }
     set_key(i, 255, service);
-    percent -= 8 + 1 / 3;
+    percent -= 8 + 1. / 3;
   }
   system("g910-led -c");
 }
