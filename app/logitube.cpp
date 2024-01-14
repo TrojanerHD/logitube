@@ -56,8 +56,7 @@ void set_keys(double percent, std::string service) {
   for (unsigned int i = 1; i <= 12; i++) {
     // 100. / 12 because we map 0-100 to 1-12
     if (percent < 100. / 12) {
-      percent = percent / (8 + 1. / 3) * 100;
-      set_key(i, percent * 2.55, service);
+      set_key(i, percent * 12 * 2.55, service);
       break;
     }
     set_key(i, 255, service);
